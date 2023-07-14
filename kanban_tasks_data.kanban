@@ -1,0 +1,98 @@
+{
+	"categories": [
+		{
+			"uuid": "21240248-1cdd-48f3-bff3-a3f1500fb57e",
+			"title": "Task",
+			"color": "70bafa"
+		},
+		{
+			"uuid": "f4ce5e4f-e83d-4598-a895-8beccac0f58c",
+			"title": "bug",
+			"color": "f62626"
+		}
+	],
+	"stages": [
+		{
+			"uuid": "74086500-d3bc-4b2a-ad49-3aff10003972",
+			"title": "Todo",
+			"tasks": [
+				"735849e2-2b15-4076-ad61-6b9fb970ad84"
+			]
+		},
+		{
+			"uuid": "d35719bf-8d6c-4ca7-8fd6-fb4091533f08",
+			"title": "Doing",
+			"tasks": [
+				"fb83d151-29fa-4a67-9d9f-1cdad80c8877",
+				"a02e748a-ab9b-41c8-afa1-3460812b39a9"
+			]
+		},
+		{
+			"uuid": "0250b4df-d4c1-45ce-9379-e69f4a23b8da",
+			"title": "Done",
+			"tasks": []
+		}
+	],
+	"tasks": [
+		{
+			"uuid": "fb83d151-29fa-4a67-9d9f-1cdad80c8877",
+			"title": "camera movement",
+			"description": "- use viewport edge to move camera based on mouse position\n- can use acceleration when moving camera to make it smooth\n- maybe use position from edge of screen to determine variable speed or increase acceleration\n",
+			"category": "21240248-1cdd-48f3-bff3-a3f1500fb57e",
+			"steps": [
+				{
+					"details": "basic camera movement",
+					"done": true
+				},
+				{
+					"details": "acceleration",
+					"done": false
+				},
+				{
+					"details": "variable speed based on distance from edge",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "735849e2-2b15-4076-ad61-6b9fb970ad84",
+			"title": "multiplayer support",
+			"description": "",
+			"category": "21240248-1cdd-48f3-bff3-a3f1500fb57e",
+			"steps": []
+		},
+		{
+			"uuid": "a02e748a-ab9b-41c8-afa1-3460812b39a9",
+			"title": "player movement",
+			"description": "- can calculate velocity after getting target position and use that with move_and_slide() function\n- can add acceleration and deacceleration for smooth movement",
+			"category": "21240248-1cdd-48f3-bff3-a3f1500fb57e",
+			"steps": [
+				{
+					"details": "basic player movement",
+					"done": true
+				},
+				{
+					"details": "acceleration and deacceleration",
+					"done": false
+				},
+				{
+					"details": "show target position cursor",
+					"done": false
+				}
+			]
+		}
+	],
+	"layout": {
+		"columns": [
+			[
+				"74086500-d3bc-4b2a-ad49-3aff10003972"
+			],
+			[
+				"d35719bf-8d6c-4ca7-8fd6-fb4091533f08"
+			],
+			[
+				"0250b4df-d4c1-45ce-9379-e69f4a23b8da"
+			]
+		]
+	}
+}
