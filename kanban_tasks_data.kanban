@@ -72,6 +72,10 @@
 					"done": true
 				},
 				{
+					"details": "pathfinding for player",
+					"done": true
+				},
+				{
 					"details": "acceleration and deacceleration",
 					"done": false
 				},

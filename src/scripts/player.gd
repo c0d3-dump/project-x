@@ -1,11 +1,13 @@
 extends CharacterBody3D
 
 @onready var cam: Camera3D = $Camera3D
+@onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
 
-const SPEED: int = 5.0
+const SPEED: float = 3.0
+const ACCEL: float = 10.0
 const gravity: float = 9.8
 const ray_length: int = 1000
-const camera_move: float = 8
+const camera_move: float = 12
 const camera_weight: float = 0.9
 
 var target_player_pos: Vector2
@@ -13,12 +15,17 @@ var target_player_pos: Vector2
 func _input(event):
 	if event is InputEventMouseButton and event.is_pressed():
 		var intersection = raycast_from_mouse(event.position)
-		var t_pos: Vector3 = intersection.position
-		move_player(Vector2(t_pos.x, t_pos.z))
+		if intersection.has("position"):
+			var t_pos: Vector3 = intersection.position
+			move_player(Vector2(t_pos.x, t_pos.z))
 
 func _process(delta: float):
 	var m_pos = get_viewport().get_mouse_position()
 	move_camera(m_pos, delta)
+	
+	if Input.is_action_pressed("canter-camera"):
+		var tween = get_tree().create_tween()
+		tween.tween_property(cam, "position", Vector3(position.x, 30, position.z), 0.3).set_trans(Tween.TRANS_EXPO)
 
 func raycast_from_mouse(m_pos: Vector2):
 	var ray_start = cam.project_ray_origin(m_pos)
@@ -40,23 +47,15 @@ func move_camera(m_pos: Vector2, delta: float):
 
 func move_player(t_pos: Vector2):
 	target_player_pos = t_pos
+	nav_agent.target_position = Vector3(t_pos.x, global_position.y, t_pos.y)
 
 func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y -= gravity * delta
-
-	if position.x != target_player_pos.x or position.z != target_player_pos.y:
-		position.x = lerpf(position.x, target_player_pos.x, 0.3)
-		position.z = lerpf(position.z, target_player_pos.y, 0.3)
-		
-
-#	var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-#	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-#	if direction:
-#		velocity.x = direction.x * SPEED
-#		velocity.z = direction.z * SPEED
-#	else:
-#		velocity.x = move_toward(velocity.x, 0, SPEED)
-#		velocity.z = move_toward(velocity.z, 0, SPEED)
-
+	
+	var direction: Vector3 = nav_agent.get_next_path_position() - global_position
+	direction = direction.normalized()
+	
+	velocity = velocity.lerp(direction * SPEED, ACCEL * delta)
+	
 	move_and_slide()
